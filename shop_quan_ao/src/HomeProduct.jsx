@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/system";
-import { AppBar, Toolbar, Typography, InputBase, Badge, IconButton, Container, Grid, Card, CardMedia, CardContent, Button, Drawer, List, ListItem, ListItemText, Slider, Box, Tabs, Tab, Snackbar, TextField } from "@mui/material";
+import { AppBar, Toolbar, Typography, InputBase, Badge, IconButton, Container, Grid, Card, CardMedia, CardContent, Button, Drawer, List, ListItem, ListItemText, Slider, Box, Tabs, Tab, Snackbar, TextField, Dialog, DialogTitle, DialogContent, DialogActions } from "@mui/material";
 import { FiSearch, FiShoppingCart, FiHeart, FiUser } from "react-icons/fi";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -61,6 +61,7 @@ const HomeProduct = ({ user, setUser }) => {
   const [minPrice, setMinPrice] = React.useState('');
   const [maxPrice, setMaxPrice] = React.useState('');
   const selectedType = selectedSubTab !== null ? selectedSubTab : "";
+
   const handleUserMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -320,8 +321,8 @@ const HomeProduct = ({ user, setUser }) => {
         },
       });
 
+      setPaymentHistory(response.data);
       console.log("Lịch sử thanh toán:", response.data);
-      // Xử lý dữ liệu nếu cần
     } catch (error) {
       console.error("Lỗi khi lấy lịch sử thanh toán:", error);
       setSnackbarMessage("Không thể lấy lịch sử thanh toán!");
@@ -493,7 +494,6 @@ const HomeProduct = ({ user, setUser }) => {
 
     loadProducts();
   }, [user, selectedTab, selectedSubTab]);
-
 
   return (
     <Box>
